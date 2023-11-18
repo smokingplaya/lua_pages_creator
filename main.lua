@@ -20,9 +20,9 @@ end
 local html_content = content.html
 local css_content = content.css
 
-if html_content then
-    os.execute("mkdir \"output\\" .. file_to_processing .. "\"")
+os.execute("mkdir \"output\\" .. file_to_processing .. "\"")
 
+if html_content then
     local html_file = io.open("output/" .. file_to_processing .. "/index.html", "w")
 
     if not html_file then
@@ -31,6 +31,17 @@ if html_content then
 
     html_file:write(html_content)
     html_file:close()
+end
+
+if css_content then
+    local css_file = io.open("output/" .. file_to_processing .. "/style.css", "w")
+
+    if not css_file then
+        util.print_error("Cannot create HTML file!")
+    end
+
+    css_file:write(css_content)
+    css_file:close()
 end
 
 print("Project \"" .. file_to_processing .. "\" output saved to ./output/" .. file_to_processing)

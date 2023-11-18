@@ -1,25 +1,43 @@
 local base_gui = require("libs.base_gui")
 
-local page = base_gui.create_element(BLOCK)
+local page = base_gui.create_element()
 page:Set("html")
 
-local page_attr = page:GetAttributes()
-page_attr:Set("text", "aasss")
+page.head = page:Add()
+page.head:Set("head")
+page.head:Include("style.css", "css")
 
-local center_div = page:Add(BLOCK)
+page.title = page.head:Add()
+page.title:Set("title", "Test page")
+
+local body = page:Add()
+body:Set("body")
+
+local div_attr = body:GetAttributes()
+div_attr:Set("style", "background: black;width:100%;height:100%;margin:0;")
+
+local center_div = body:Add()
 center_div:Set("div")
+center_div:SetWide("50%")
+center_div:SetTall("25%")
+center_div:SetBackgroundColor("#FFFFFF")
 center_div:Center()
 
-local div_attr = center_div:GetAttributes()
-div_attr:Set("class", "btn btn-primary")
+local texts = {
+    "Lua = power",
+    "test string",
+    "aboba"
+}
 
-local ul = center_div:Add(BLOCK)
-ul:Set("ul")
+for k, v in pairs(texts) do
+    local parent = center_div:Add()
+    parent:Set("div")
 
-local ul1 = ul:Add(BLOCK)
-ul1:Set("ul")
-
-local ul1_attr = ul1:GetAttributes()
-ul1_attr:Set("id", "download")
+    local center_text = parent:Add()
+    center_text:Set("h1", v)
+    center_text:Center()
+    center_text:SetFont("Manrope")
+    center_text:SetFontSize("24px")
+end
 
 return page
