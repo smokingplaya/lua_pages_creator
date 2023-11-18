@@ -114,9 +114,9 @@ function gui_mt:Build(tab_size) -- TODO: Пофиксить лишние \n
         children_content_css = children_content_css .. builded.css .. "\n"
     end
 
-    print("here", self.element_name[2], children_content)
+    --print("here", self.element_name[2], children_content)
     if children_content_html == "" and self.element_name[2] then
-        print(self.element_name[2])
+        --print(self.element_name[2])
         children_content_html = self.element_name[2]
     end
 
@@ -153,17 +153,55 @@ function gui_mt:AddStyle(k, v)
 end
 
 function gui_mt:Center()
-    self.parent:AddStyle("display", "flex")
-    self.parent:AddStyle("flex-direction", "row")
-    self.parent:AddStyle("flex-wrap", "wrap")
-    self.parent:AddStyle("justify-content", "center")
-    self.parent:AddStyle("align-items", "center")
+    self:AddStyle("position", "absolute")
+    self:AddStyle("top", "50%")
+    self:AddStyle("left", "50%")
+    self:AddStyle("transform", "translate(-50%, -50%)")
 end
 
-function gui_mt:Dock()
+-- Margins and positions
+-- Enums of DOCK
+
+LEFT = 0
+RIGHT = 1
+TOP = 2
+BOTTOM = 3
+FILL = 4
+
+function gui_mt:Dock(dockMode)
+    if dockMode == LEFT then
+        self:AddStyle("float", "left")
+        self:AddStyle("height", "100%")
+        self:AddStyle("margin-right", "10px")
+    elseif dockMode == RIGHT then
+        self:AddStyle("float", "right")
+        self:AddStyle("height", "100%")
+        self:AddStyle("margin-left", "10px")
+    elseif dockMode == TOP then
+        self.parent:AddStyle("position", "relative")
+        self:AddStyle("position", "absolute")
+        self:AddStyle("top", "0")
+        self:AddStyle("width", "100%")
+    elseif dockMode == BOTTOM then
+        self.parent:AddStyle("position", "relative")
+        self:AddStyle("position", "absolute")
+        self:AddStyle("bottom", "0")
+        self:AddStyle("width", "100%")
+    elseif dockMode == FILL then
+        self:AddStyle("width", "100%")
+        self:AddStyle("height", "100%")
+    end
 end
 
---
+function gui_mt:SetMargin(m1, m2, m3, m4)
+    self:AddStyle("margin", (m1 or 0) .. " " .. (m2 or 0) .. " " .. (m3 or 0) .. " " .. (m4 or 0))
+end
+
+function gui_mt:SetPadding(p1, p2, p3, p4)
+    self:AddStyle("padding", (p1 or 0) .. " " .. (p2 or 0) .. " " .. (p3 or 0) .. " " .. (p4 or 0))
+end
+
+-- Sizes
 
 function gui_mt:SetSize(w, h)
     self:SetWide(w)
@@ -178,13 +216,21 @@ function gui_mt:SetTall(h)
     self:AddStyle("height", h)
 end
 
--- Background
+-- Background & Colors
 
 function gui_mt:SetBackgroundColor(c)
     self:AddStyle("background-color", c)
 end
 
--- Font
+function gui_mt:SetColor(c)
+    self:AddStyle("color", c)
+end
+
+-- Font & Text
+
+function gui_mt:SetTextAlign(c)
+    self:AddStyle("text-align", c)
+end
 
 function gui_mt:SetFont(n)
     self:AddStyle("font-family", n)
@@ -194,27 +240,10 @@ function gui_mt:SetFontSize(size)
     self:AddStyle("font-size", size)
 end
 
--- enums of DOCK_
+-- Border
 
-DOCK_LEFT = 0
-DOCK_RIGHT = 1
-DOCK_TOP = 2
-DOCK_BOTTOM = 3
-DOCK_CENTER = 4
-DOCK_NO = 5
-
--- mt funcs
-
---local function replace_char(pos, str, r)
---    return str:sub(pos, pos - 1) .. r .. str:sub(pos + 1, str:len())
---end
-
---local vars = {"text", "block"}
---
---for k, v in ipairs(vars) do
---    gui_mt["Is" .. (replace_char(1, v, v:sub(1, 1):upper()))] = function(self)
---        return self["is_" .. v]
---    end
---end
+function gui_mt:SetBorderRadius(r)
+    self:AddStyle("border-radius", r)
+end
 
 return lib
