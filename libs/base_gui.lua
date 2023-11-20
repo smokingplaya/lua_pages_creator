@@ -74,7 +74,7 @@ local rels = {
     ico = "icon"
 }
 
-function gui_mt:Include(href, rel, ...) -- 3 - other args
+function gui_mt:Include(href, rel, ...) -- TODO ALL!!!: 3 - other args
     local link = self:Add()
     link:Set("link", nil, false)
 
@@ -123,6 +123,8 @@ function gui_mt:InnerStyle(k)
     end
 
     self.inner_style[#self.inner_style+1] = k
+
+    return self
 end
 
 function gui_mt:Center()
