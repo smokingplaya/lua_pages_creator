@@ -7,7 +7,7 @@ Metatables in Lua = classes
 There are two classes in LPC: gui_element and attributes. Let's consider them separately.
 
 ### gui_element
-gui_element это самый главный класс, через который и идёт работа с элементами веб страницы. Сейчас он имеет следующие методы:
+gui_element is the main class, through which the work with the elements of the web page goes. Now it has the following methods:
 * GetParent() -> parent gui_element
 * [only for [link tag](https://developer.mozilla.org/en/docs/Web/HTML/Element/link)] Include(href: String, ref: String, ...: Vararg) -> TODO
 * Set(k: String, v: String, b: Boolean) -> gui_element; Sets tag for element. k - tag name, v - value, b - is tag needs end
