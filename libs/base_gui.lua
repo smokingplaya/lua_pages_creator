@@ -186,7 +186,7 @@ end
 
 function gui_mt:SetSize(w, h)
     self:SetWide(w)
-    self:SetTall(w)
+    self:SetTall(h)
 
     return self
 end
