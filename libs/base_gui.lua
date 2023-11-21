@@ -338,7 +338,7 @@ local function generate_html(self, indentation_level)
     return html
 end
 
--- билд
+-- build
 function gui_mt:Build(tab_size)
     tab_size = tab_size or 0
 
